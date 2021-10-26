@@ -1,12 +1,15 @@
-const input = document.querySelector('#controls > input');
+const refs = {
+    input: document.querySelector('#controls > input'),
+    render: document.querySelector('#controls > [data-action="render"]'),
+    boxes: document.querySelector('#boxes'),
+    destroy: document.querySelector('#controls > [data-action="destroy"]'),
+}
+
 let inputValue = 0;
 
-input.addEventListener('input', handleSubmit);
-
-const render = document.querySelector('#controls > [data-action="render"]')
-render.addEventListener('click', createBox)
-
-const boxes = document.querySelector('#boxes');
+refs.input.addEventListener('input', handleSubmit);
+refs.render.addEventListener('click', createBox);
+refs.destroy.addEventListener('click', handlerDestroy);
 
 function handleSubmit(event) {
     const value = event.currentTarget.value;
@@ -15,8 +18,8 @@ function handleSubmit(event) {
 
 function createBox() {
     const valueBox = createBoxes(inputValue);
-    boxes.insertAdjacentHTML("beforeend", valueBox)
-}
+    refs.boxes.insertAdjacentHTML("beforeend", valueBox)
+};
 
 function createBoxes(amount) {
     const boxe = [];
@@ -25,8 +28,16 @@ function createBoxes(amount) {
     for (let index = 0; index < amount; index++) {
         width = 30 + index * 10;
         height = 30 + index * 10;
-        const element = `<div style="width: ${width}px; height: ${height}px; background-color: red;"></div>`;
+        const element = `<div style="width: ${width}px; height: ${height}px; background-color: rgb(${getRandomInt(255)},${getRandomInt(255)},${getRandomInt(255)});"></div>`;
         boxe.push(element)
     };
     return boxe.join('');
+};
+
+function handlerDestroy() {
+    refs.boxes.innerHTML = ' ';
 }
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+};
