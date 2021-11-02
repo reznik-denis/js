@@ -1,4 +1,4 @@
-import galleryItems from './js/galleryItems.js';
+import galleryItems from './js/galleryItems';
 
 function itemList({ preview, original, description }) {
     return (`<li class="gallery__item"><a class="gallery__link"
